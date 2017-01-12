@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="todoapp">
+	<div id="searchbar">
+	    <input v-model="searchfield" name="" type="text" placeholder="Search todos..."/>
+	    <button><i class="fa fa-search" aria-hidden="true"></i></button>
+	</div>
+
+
+	<div id="content">
+	    <div id="addtodo">
+		<input name="" v-on:keyup.enter="send"  type="text" placeholder="Add a todo .." v-model="todotext"/>
+		<button v-on:click="send"><i class="fa fa-plus" aria-hidden="true"></i>
+</buttton>
+	    </div>
+
+
+	    <div id="todos"  v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+		<todoitem v-for="(todo, index) in todos1" v-bind:todo="todo"
+			  v-on:removeit="removeit(todo, index)"
+			  v-on:doneundone="toggledone(todo, index)">
+		</todoitem>
+	    </div>
+	</div>
+
+    </div>
+{% endblock %}
