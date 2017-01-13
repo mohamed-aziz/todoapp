@@ -4,11 +4,10 @@ from flask_assets import Bundle
 
 
 js = Bundle(
-    'https://unpkg.com/axios/dist/axios.min.js',
-    'https://unpkg.com/vue-infinite-scroll@2.0.0',
+    'https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js',
+    'js/infinite-scroll.js',
     'https://cdn.jsdelivr.net/lodash/4.17.4/lodash.js',
     'js/app.js',
-    # 'node_modules/vue-infinite-scroll/vue-infinite-scroll.js',
     filters='jsmin',
     output='gen/app.js'
 )
