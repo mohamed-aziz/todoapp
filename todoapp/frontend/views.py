@@ -4,6 +4,7 @@ from flask_assets import Bundle
 
 
 js = Bundle(
+    'https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.js',
     'https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js',
     'js/infinite-scroll.js',
     'https://cdn.jsdelivr.net/lodash/4.17.4/lodash.js',

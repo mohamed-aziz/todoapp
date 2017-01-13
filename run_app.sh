@@ -10,7 +10,7 @@ echo "Running todoapp page app on port $1"
 
 workon todoapp
 
-cd /home/webuser/Projects/todoap
+cd /home/webuser/Projects/todoapp
 
 pip install -r requirements.txt
 
