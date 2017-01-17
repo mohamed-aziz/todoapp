@@ -1,4 +1,6 @@
 
+var socket = io();
+
 var todovm = new Vue({
   el: "#todoapp",
   data: {
@@ -68,6 +70,7 @@ var todovm = new Vue({
 	.then (function (response) {
 	  axios('/api/v1/' + response.data._links.self.href)
 	    .then(function (response) {
+	      socket.emit('newtodo', response.data);
 	      vm.todos1.splice(0, 0, response.data);
 	    });
 	})
@@ -86,6 +89,7 @@ var todovm = new Vue({
 	}
       )
 	.then(function () {
+	  socket.emit('removetodo', index);
 	  vm.todos1.splice(
 	    index,
 	    1
@@ -110,7 +114,11 @@ var todovm = new Vue({
 	.then(function (response) {
 	  axios('/api/v1/' + response.data._links.self.href)
 	    .then(function (response) {
-	      vm.$set(vm.todos1, index, response.data);
+	      socket.emit('donetodo', {
+		index: index,
+		data: response.data
+	      });
+	      vm.$set(todovm.todos1, index, response.data);
 	    });
 
 	});
@@ -143,6 +151,7 @@ Vue.component('todoitem', {
 function init() {
   axios('/api/v1/todos?sort=-_created')
     .then (function (response) {
+      
       todovm.todos1 = response.data._items;
       if (response.data._links.next) {
 	todovm.nexthref = response.data._links.next.href;
@@ -150,7 +159,29 @@ function init() {
 	todovm.nexthref = false;
       }
     });
-
 }
 
 init();
+
+socket.on('newtodo', function(data) {
+  $.notify("Someone added a todo.", "info");
+  todovm.todos1.splice(0, 0, data);
+});
+
+socket.on('removetodo', function(data) {
+  if (todovm.todos1[data]) {
+    $.notify("Someone removed a todo.", "info");
+    todovm.todos1.splice(
+      data,
+      1
+    );
+  }
+}) ;
+
+
+socket.on('donetodo', function (data) {
+  if (todovm.todos1[data.index]) {
+    $.notify("Someone has changed the state of a todo.", "info");
+    todovm.$set(todovm.todos1, data.index, data.data);
+  }
+});

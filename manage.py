@@ -11,5 +11,11 @@ manager = Manager(app)
 manager.add_command("assets", ManageAssets(assets))
 
 
+@manager.command
+def socketserve():
+    from todoapp.extensions import socketio
+    socketio.run(app)
+
+
 if __name__ == '__main__':
     manager.run()

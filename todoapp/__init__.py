@@ -1,5 +1,5 @@
 from eve import Eve
-from .extensions import assets
+from .extensions import assets, socketio
 from .frontend import frontedbp
 import os
 
@@ -18,7 +18,7 @@ def create_app(config):
 def register_extensions(app):
     # create the bundle and register it to the assets
     assets.init_app(app)
-
+    socketio.init_app(app)
 
 def register_blueprints(app):
     app.register_blueprint(
