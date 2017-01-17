@@ -17,5 +17,7 @@ jsmin==2.2.1
 meinheld==0.6.1
 pymongo==3.4.0
 simplejson==3.10.0
-webassets==0.12.1
+git+https://github.com/mohamed-aziz/webassets@b642dea1edff6ababc03b0ae75e70d8bd4f42275
 wsgiref==0.1.2
+eventlet==0.20.1
+Flask-SocketIO==2.8.2
