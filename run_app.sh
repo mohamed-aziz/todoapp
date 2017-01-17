@@ -16,4 +16,4 @@ pip install -r requirements.txt
 
 python manage.py assets build
 
-gunicorn --worker-class=meinheld.gmeinheld.MeinheldWorker -b 127.0.0.1:$1 wsgi:app
+gunicorn --worker-class=eventlet -b 127.0.0.1:$1 --workers=1  wsgi:app
